@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/QuizList-for-practie/static/css/main.b5320759.css",
+    "main.js": "/QuizList-for-practie/static/js/main.c5d2ea38.js",
+    "index.html": "/QuizList-for-practie/index.html",
+    "main.b5320759.css.map": "/QuizList-for-practie/static/css/main.b5320759.css.map",
+    "main.c5d2ea38.js.map": "/QuizList-for-practie/static/js/main.c5d2ea38.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b5320759.css",
+    "static/js/main.c5d2ea38.js"
+  ]
+}
