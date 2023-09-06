@@ -1,4 +1,12 @@
 import styled from 'styled-components';
 export const List = styled.ul`
-  background-color: orange;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+`;
+export const ListItem = styled.li`
+  width: 300px;
+  :hover {
+    background-color: ghostwhite;
+  }
 `;

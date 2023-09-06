@@ -2,6 +2,7 @@ import { QuizForm } from './QuizForm/QuizForm';
 import { SearchBar } from './SearchBar/SearchBar';
 import items from '../data/quizItems.json';
 import { QuizList } from './QuizList/QuizList';
+import { GlobalStyle } from './GlobalStyle';
 
 export const App = () => {
   return (
@@ -9,6 +10,7 @@ export const App = () => {
       <QuizForm />
       <SearchBar />
       <QuizList items={items} />
+      <GlobalStyle />
     </>
   );
 };
