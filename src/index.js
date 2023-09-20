@@ -1,9 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from 'components/App';
+import { ThemeProvider } from 'styled-components';
+
+const theme = {
+  colors: {
+    blue: 'lightskyblue',
+    yellow: 'antiquewhite',
+    red: 'lightpink',
+  },
+  radii: {
+    sm: '2px',
+    md: '8px',
+    lg: '16px',
+  },
+  spacing: value => `${value * 4}px`,
+};
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <ThemeProvider theme={theme}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ThemeProvider>
 );

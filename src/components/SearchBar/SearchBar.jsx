@@ -1,8 +1,18 @@
-export const SearchBar = () => {
+export const SearchBar = ({ topic, level, onChangeTopic, onChangeLevel }) => {
   return (
-    <>
-      <input type="text" placeholder="Topic filter" />
-      <select></select>
-    </>
+    <div>
+      <input
+        value={topic}
+        type="text"
+        placeholder="Topic filter"
+        onChange={evt => onChangeTopic(evt.target.value)}
+      />
+      <select value={level} onChange={evt => onChangeLevel(evt.target.value)}>
+        <option value="all">All</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="advanced">Advanced</option>
+      </select>
+    </div>
   );
 };

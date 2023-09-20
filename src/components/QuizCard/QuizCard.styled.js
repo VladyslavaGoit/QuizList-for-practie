@@ -1,19 +1,30 @@
 import styled from 'styled-components';
 
-const getBorderColor = props => {
-  switch (props.level) {
+const getBorderColor = ({ level, theme: { colors } }) => {
+  switch (level) {
     case 'beginner':
-      return 'lightskyblue';
+      return colors.blue;
     case 'intermediate':
-      return 'antiquewhite';
+      return colors.yellow;
     case 'advanced':
-      return 'lightpink';
+      return colors.red;
     default:
       return 'transparent';
   }
 };
 
 export const Wrapper = styled.div`
-  padding: 8px;
-  border: 2px solid ${getBorderColor};
+  padding: ${p => p.theme.spacing(2)};
+  border: ${p => p.theme.radii.sm} solid ${getBorderColor};
+`;
+
+export const Button = styled.button`
+  padding: ${p => p.theme.spacing(1)};
+  border: none;
+  background-color: transparent;
+  color: darkviolet;
+  :hover {
+    background-color: violet;
+    color: white;
+  }
 `;

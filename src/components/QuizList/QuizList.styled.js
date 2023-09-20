@@ -5,8 +5,5 @@ export const List = styled.ul`
   gap: 20px;
 `;
 export const ListItem = styled.li`
-  width: 300px;
-  :hover {
-    background-color: ghostwhite;
-  }
+  flex-basis: calc((100% - 2 * 20px) / 3);
 `;
