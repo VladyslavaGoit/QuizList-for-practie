@@ -1,16 +1,26 @@
-import { QuizForm } from './QuizForm/QuizForm';
-import { SearchBar } from './SearchBar/SearchBar';
-import initialItems from '../data/quizItems.json';
-import { QuizList } from './QuizList/QuizList';
-import { GlobalStyle } from './GlobalStyle';
-import { Layout } from './Layout';
-import { useState } from 'react';
+import { QuizForm } from '../QuizForm/QuizForm';
+import { SearchBar } from '../SearchBar/SearchBar';
+import initialItems from '../../data/quizItems';
+import { QuizList } from '../QuizList/QuizList';
+import { GlobalStyle } from '../GlobalStyle';
+import { Layout } from '../Layout';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { Container } from './App.styled';
 
 export const App = () => {
   const [quizItems, setQuizItems] = useState(initialItems);
-  const [topic, setTopic] = useState('');
-  const [level, setLevel] = useState('all');
+  const [topic, setTopic] = useState(
+    () => JSON.parse(localStorage.getItem('topic')) || ''
+  );
+  const [level, setLevel] = useState(
+    () => JSON.parse(localStorage.getItem('level')) || 'all'
+  );
+
+  useEffect(() => {
+    localStorage.setItem('topic', JSON.stringify(topic));
+    localStorage.setItem('level', JSON.stringify(level));
+  }, [topic, level]);
 
   const handleDeleteQuiz = quizId =>
     setQuizItems(quizItems.filter(({ id }) => id !== quizId));
@@ -34,10 +44,15 @@ export const App = () => {
     });
   };
 
+  const handleResetFilters = () => {
+    setTopic('');
+    setLevel('all');
+  };
+
   const visibleQuizItems = filterQuizItems(topic, level);
 
   return (
-    <>
+    <Container>
       <Layout>
         <QuizForm onAdd={handleAddQuiz} />
         <SearchBar
@@ -45,10 +60,11 @@ export const App = () => {
           level={level}
           onChangeLevel={handleChangeLevel}
           onChangeTopic={handleChangeTopic}
+          onReset={handleResetFilters}
         />
         <QuizList items={visibleQuizItems} onDelete={handleDeleteQuiz} />
         <GlobalStyle />
       </Layout>
-    </>
+    </Container>
   );
 };
