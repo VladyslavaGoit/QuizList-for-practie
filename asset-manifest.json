@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/QuizList-for-practie/static/css/main.7cda0caf.css",
-    "main.js": "/QuizList-for-practie/static/js/main.04028fcd.js",
+    "main.js": "/QuizList-for-practie/static/js/main.1a02deea.js",
     "index.html": "/QuizList-for-practie/index.html",
     "main.7cda0caf.css.map": "/QuizList-for-practie/static/css/main.7cda0caf.css.map",
-    "main.04028fcd.js.map": "/QuizList-for-practie/static/js/main.04028fcd.js.map"
+    "main.1a02deea.js.map": "/QuizList-for-practie/static/js/main.1a02deea.js.map"
   },
   "entrypoints": [
     "static/css/main.7cda0caf.css",
-    "static/js/main.04028fcd.js"
+    "static/js/main.1a02deea.js"
   ]
 }
