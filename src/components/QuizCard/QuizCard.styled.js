@@ -15,16 +15,19 @@ const getBorderColor = ({ level, theme: { colors } }) => {
 
 export const Wrapper = styled.div`
   padding: ${p => p.theme.spacing(2)};
+  height: 215px;
   border: ${p => p.theme.radii.sm} solid ${getBorderColor};
 `;
 
 export const Button = styled.button`
   padding: ${p => p.theme.spacing(1)};
+  width: 45px;
+  height: 45px;
   border: none;
   background-color: transparent;
-  color: darkviolet;
+  color: #ff4d00;
   :hover {
-    background-color: violet;
+    background-color: #f7976e;
     color: white;
   }
 `;

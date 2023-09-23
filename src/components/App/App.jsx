@@ -6,6 +6,7 @@ import { Layout } from '../Layout';
 import { useState, useEffect } from 'react';
 import { Container } from './App.styled';
 import { addQuiz, deleteQuizById, fetchQuizzes } from 'API/fetchQuizzes';
+import BeatLoader from 'react-spinners/BeatLoader';
 
 export const App = () => {
   const [quizItems, setQuizItems] = useState([]);
@@ -59,11 +60,14 @@ export const App = () => {
   const handleAddQuiz = async newQuiz => {
     try {
       setError(false);
+      setIsLoading(true);
       const addedQuiz = await addQuiz(newQuiz);
       setQuizItems(prev => [...prev, addedQuiz]);
     } catch (error) {
       setError(true);
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -101,7 +105,13 @@ export const App = () => {
           onChangeTopic={handleChangeTopic}
           onReset={handleResetFilters}
         />
-        {isLoading && <div>Loading...</div>}
+        {
+          <BeatLoader
+            size={15}
+            color={'#ff4d00'}
+            cssOverride={{ margin: '0 auto' }}
+          />
+        }
         {error && !isLoading && (
           <div>
             Oops, something went wrong. Please reload the page to try again
