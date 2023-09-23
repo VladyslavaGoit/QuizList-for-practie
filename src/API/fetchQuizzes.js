@@ -11,3 +11,8 @@ export const deleteQuizById = async quizId => {
   const response = await axios.delete(`/quizzes/${quizId}`);
   return response.data;
 };
+
+export const addQuiz = async newQuiz => {
+  const response = await axios.post('/quizzes', newQuiz);
+  return response.data;
+};

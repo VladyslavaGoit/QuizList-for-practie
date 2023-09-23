@@ -1,13 +1,11 @@
 import { QuizForm } from '../QuizForm/QuizForm';
 import { SearchBar } from '../SearchBar/SearchBar';
-
 import { QuizList } from '../QuizList/QuizList';
 import { GlobalStyle } from '../GlobalStyle';
 import { Layout } from '../Layout';
 import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
 import { Container } from './App.styled';
-import { deleteQuizById, fetchQuizzes } from 'API/fetchQuizzes';
+import { addQuiz, deleteQuizById, fetchQuizzes } from 'API/fetchQuizzes';
 
 export const App = () => {
   const [quizItems, setQuizItems] = useState([]);
@@ -19,6 +17,7 @@ export const App = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const [currentQuizId, setCurrentQuizId] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('topic', JSON.stringify(topic));
@@ -28,10 +27,12 @@ export const App = () => {
   useEffect(() => {
     const getQuizzes = async () => {
       try {
+        setError(false);
         setIsLoading(true);
         const quizzes = await fetchQuizzes();
         setQuizItems(quizzes);
       } catch (error) {
+        setError(true);
         console.log(error);
       } finally {
         setIsLoading(false);
@@ -42,19 +43,29 @@ export const App = () => {
 
   const handleDeleteQuiz = async quizId => {
     try {
+      setError(false);
       setCurrentQuizId(quizId);
       setIsLoading(true);
       const deleteQuiz = await deleteQuizById(quizId);
       setQuizItems(quizItems.filter(({ id }) => id !== deleteQuiz.id));
     } catch (error) {
+      setError(true);
       console.log(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleAddQuiz = newQuiz =>
-    setQuizItems(prev => [...prev, { ...newQuiz, id: nanoid() }]);
+  const handleAddQuiz = async newQuiz => {
+    try {
+      setError(false);
+      const addedQuiz = await addQuiz(newQuiz);
+      setQuizItems(prev => [...prev, addedQuiz]);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+    }
+  };
 
   const handleChangeTopic = newTopic => setTopic(newTopic);
 
@@ -91,6 +102,11 @@ export const App = () => {
           onReset={handleResetFilters}
         />
         {isLoading && <div>Loading...</div>}
+        {error && !isLoading && (
+          <div>
+            Oops, something went wrong. Please reload the page to try again
+          </div>
+        )}
         {visibleQuizItems.length > 0 && (
           <QuizList
             items={visibleQuizItems}
