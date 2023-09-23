@@ -105,13 +105,13 @@ export const App = () => {
           onChangeTopic={handleChangeTopic}
           onReset={handleResetFilters}
         />
-        {
+        {isLoading && !quizItems.length && (
           <BeatLoader
             size={15}
             color={'#ff4d00'}
             cssOverride={{ margin: '0 auto' }}
           />
-        }
+        )}
         {error && !isLoading && (
           <div>
             Oops, something went wrong. Please reload the page to try again
