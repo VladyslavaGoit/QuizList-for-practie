@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { Container } from './App.styled';
 import { addQuiz, deleteQuizById, fetchQuizzes } from 'API/fetchQuizzes';
 import BeatLoader from 'react-spinners/BeatLoader';
+import { useMemo } from 'react';
 
 export const App = () => {
   const [quizItems, setQuizItems] = useState([]);
@@ -75,24 +76,22 @@ export const App = () => {
 
   const handleChangeLevel = newLevel => setLevel(newLevel);
 
-  const filterQuizItems = (filterTopic, filterLevel) => {
-    return quizItems.filter(({ topic, level }) => {
-      if (filterLevel === 'all') {
-        return topic.toLowerCase().includes(filterTopic.toLowerCase());
-      }
-      return (
-        topic.toLowerCase().includes(filterTopic.toLowerCase()) &&
-        level === filterLevel
-      );
-    });
-  };
-
   const handleResetFilters = () => {
     setTopic('');
     setLevel('all');
   };
 
-  const visibleQuizItems = filterQuizItems(topic, level);
+  const visibleQuizItems = useMemo(() => {
+    return quizItems.filter(quiz => {
+      const hasSameTopic = quiz.topic
+        .toLowerCase()
+        .includes(topic.toLowerCase());
+      if (level === 'all') {
+        return hasSameTopic;
+      }
+      return hasSameTopic && quiz.level === level;
+    });
+  }, [quizItems, topic, level]);
 
   return (
     <Container>
