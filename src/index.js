@@ -1,6 +1,7 @@
-import { App } from 'components/App/App';
+import { App } from 'components/App';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
 import { ThemeProvider } from 'styled-components';
 
@@ -19,9 +20,11 @@ const theme = {
 };
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <ThemeProvider theme={theme}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </ThemeProvider>
+  <React.StrictMode>
+    <BrowserRouter basename="/QuizList-for-practie">
+      <ThemeProvider theme={theme}>
+        <App />{' '}
+      </ThemeProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );
