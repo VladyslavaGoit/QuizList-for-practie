@@ -1,23 +1,32 @@
-import { NavLink } from 'react-router-dom';
+import {
+  HeaderContainer,
+  Navigation,
+  NavList,
+  StyledHeader,
+  StyledNavLink,
+} from './Header.styled';
+import { HiOutlineHome } from 'react-icons/hi';
 
 export const Header = () => {
   return (
     <>
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/quizzes">Quizzes List</NavLink>
-            </li>
-            <li>
-              <NavLink to="/create">Create new quiz</NavLink>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <StyledHeader>
+        <HeaderContainer>
+          <Navigation>
+            <StyledNavLink to="/">
+              <HiOutlineHome size={25} />
+            </StyledNavLink>
+            <NavList>
+              <li>
+                <StyledNavLink to="/quizzes">Quizzes List</StyledNavLink>
+              </li>
+              <li>
+                <StyledNavLink to="/create">Create new quiz</StyledNavLink>
+              </li>
+            </NavList>
+          </Navigation>
+        </HeaderContainer>
+      </StyledHeader>
     </>
   );
 };

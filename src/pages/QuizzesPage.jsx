@@ -79,7 +79,7 @@ const QuizzesPage = () => {
         onChangeTopic={handleChangeTopic}
         onReset={handleResetFilters}
       />
-      {isLoading && (
+      {isLoading && !quizItems.length && (
         <BeatLoader
           size={15}
           color={'#ff4d00'}

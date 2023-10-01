@@ -1,3 +1,5 @@
+import { Wrapper } from './SearchBar.styled';
+
 export const SearchBar = ({
   topic,
   level,
@@ -6,7 +8,7 @@ export const SearchBar = ({
   onReset,
 }) => {
   return (
-    <div>
+    <Wrapper>
       <input
         value={topic}
         type="text"
@@ -20,6 +22,6 @@ export const SearchBar = ({
         <option value="advanced">Advanced</option>
       </select>
       <button onClick={onReset}>Reset filters</button>
-    </div>
+    </Wrapper>
   );
 };

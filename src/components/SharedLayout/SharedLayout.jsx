@@ -1,15 +1,21 @@
 import { Header } from 'components/Header/Header';
 import { Outlet } from 'react-router-dom';
-import { Container } from './SharedLayout.styled';
+import { Container, LayoutGrid } from './SharedLayout.styled';
 
 export const SharedLayout = () => {
   return (
     <Container>
       <Header />
       <main>
-        <Outlet />
+        <LayoutGrid>
+          <Outlet />
+        </LayoutGrid>
       </main>
-      <footer>Here will be a footer soon</footer>
+      <footer>
+        <LayoutGrid>
+          <p>Here will be a footer soon</p>
+        </LayoutGrid>
+      </footer>
     </Container>
   );
 };
