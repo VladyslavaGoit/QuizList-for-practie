@@ -1,7 +1,7 @@
 import { fetchQuizById } from 'API/fetchQuizzes';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import BeatLoader from 'react-spinners/BeatLoader';
 
 const QuizDetailsPage = () => {
@@ -9,6 +9,7 @@ const QuizDetailsPage = () => {
   const [quiz, setQuiz] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -29,6 +30,7 @@ const QuizDetailsPage = () => {
 
   return (
     <div>
+      <Link to={location?.state?.from ?? '/quizzes'}>Back to quizzes</Link>
       {isLoading && <BeatLoader />}
       {quiz && <h3>{quiz.topic}</h3>}
       {error && (
