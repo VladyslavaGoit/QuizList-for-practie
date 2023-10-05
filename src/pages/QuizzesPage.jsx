@@ -4,23 +4,17 @@ import { useState, useEffect } from 'react';
 import { deleteQuizById, fetchQuizzes } from 'API/fetchQuizzes';
 import BeatLoader from 'react-spinners/BeatLoader';
 import { useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const QuizzesPage = () => {
   const [quizItems, setQuizItems] = useState([]);
-  const [topic, setTopic] = useState(
-    () => JSON.parse(localStorage.getItem('topic')) || ''
-  );
-  const [level, setLevel] = useState(
-    () => JSON.parse(localStorage.getItem('level')) || 'all'
-  );
   const [currentQuizId, setCurrentQuizId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [searchParams] = useSearchParams();
+  const topic = searchParams.get('topic') ?? '';
+  const level = searchParams.get('level') ?? 'all';
 
-  useEffect(() => {
-    localStorage.setItem('topic', JSON.stringify(topic));
-    localStorage.setItem('level', JSON.stringify(level));
-  }, [topic, level]);
   useEffect(() => {
     const getQuizzes = async () => {
       try {
@@ -37,14 +31,7 @@ const QuizzesPage = () => {
     };
     getQuizzes();
   }, []);
-  const handleChangeTopic = newTopic => setTopic(newTopic);
 
-  const handleChangeLevel = newLevel => setLevel(newLevel);
-
-  const handleResetFilters = () => {
-    setTopic('');
-    setLevel('all');
-  };
   const handleDeleteQuiz = async quizId => {
     try {
       setError(false);
@@ -72,13 +59,7 @@ const QuizzesPage = () => {
   }, [quizItems, topic, level]);
   return (
     <>
-      <SearchBar
-        topic={topic}
-        level={level}
-        onChangeLevel={handleChangeLevel}
-        onChangeTopic={handleChangeTopic}
-        onReset={handleResetFilters}
-      />
+      <SearchBar />
       {isLoading && !quizItems.length && (
         <BeatLoader
           size={15}
