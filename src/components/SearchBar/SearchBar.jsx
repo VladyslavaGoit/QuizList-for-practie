@@ -1,36 +1,20 @@
-import { useSearchParams } from 'react-router-dom';
+import { LevelFilter } from 'components/LevelFilter/LevelFilter';
+import { TopicFilter } from 'components/TopicFilter/TopicFilter';
+import { useFilterParams } from 'hooks/useFilterParams';
 import { Wrapper } from './SearchBar.styled';
 
 export const SearchBar = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const topic = searchParams.get('topic') ?? '';
-  const level = searchParams.get('level') ?? 'all';
-  console.log(topic, level);
-
-  const updateSearchParams = (name, value) => {
-    searchParams.set(name, value);
-    setSearchParams(searchParams);
-  };
+  const { resetFilters } = useFilterParams();
   return (
     <Wrapper>
-      <input
-        value={topic}
-        type="text"
-        placeholder="Topic filter"
-        onChange={evt => updateSearchParams('topic', evt.target.value)}
-      />
-      <select
-        value={level}
-        onChange={evt => updateSearchParams('level', evt.target.value)}
-      >
+      <TopicFilter />
+      <LevelFilter>
         <option value="all">All</option>
         <option value="beginner">Beginner</option>
         <option value="intermediate">Intermediate</option>
         <option value="advanced">Advanced</option>
-      </select>
-      <button onClick={() => setSearchParams({ topic: '', level: 'all' })}>
-        Reset filters
-      </button>
+      </LevelFilter>
+      <button onClick={() => resetFilters()}>Reset filters</button>
     </Wrapper>
   );
 };
